@@ -1,0 +1,245 @@
+
+.nav-link {
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #ffffff;
+    padding: 20px 0px;
+    margin: 0px 20px;
+    display: inline-block;
+    position: relative;
+    opacity: 0.75;
+  }
+  
+  .nav-link:hover {
+    opacity: 1;
+  }
+  
+  .nav-link::before {
+    transition: 300ms;
+    height: 5px;
+    content: "";
+    position: absolute;
+    background-color: #ffffff;
+  }
+  
+  .nav-link-ltr::before {
+    width: 0%;
+    bottom: 0px;
+  }
+  
+  .nav-link-ltr:hover::before {
+    width: 75%;
+  }
+  
+/* bootstrap-tagsinput.css file - add in local */
+
+.bootstrap-tagsinput {
+    background-color: rgb(87, 87, 87);
+    border: 1px solid rgb(87, 87, 87);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    display: inline-block;
+    padding: 4px 6px;
+    color: rgb(255, 255, 255);
+    vertical-align: middle;
+    border-radius: 4px;
+    max-width: 100%;
+    width: 30% !important;
+    line-height: 22px;
+    cursor: text;
+    margin-top: .5rem !important;
+  }
+  .bootstrap-tagsinput input {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0 6px;
+    margin: 0;
+    width: auto;
+    max-width: inherit;
+  }
+  .bootstrap-tagsinput.form-control input::-moz-placeholder {
+    color: #777;
+    opacity: 1;
+  }
+  .bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+    color: #777;
+  }
+  .bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+    color: #777;
+  }
+  .bootstrap-tagsinput input:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .bootstrap-tagsinput .tag {
+    margin-right: 2px;
+    color: rgb(255, 255, 255);
+  }
+  .bootstrap-tagsinput .tag [data-role="remove"] {
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  .bootstrap-tagsinput .tag [data-role="remove"]:after {
+    content: "x";
+    padding: 0px 2px;
+  }
+  .bootstrap-tagsinput .tag [data-role="remove"]:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  }
+  
+  .bg-dark-hover{
+    background-color: #777
+  }
+  .bg-dark-hover::selection {
+    background-color: rgb(255, 255, 255);
+  }
+
+  /** * Extracted from: SweetAlert * Modified by: Istiak Tridip */
+ .success-checkmark {
+  width: 80px;
+  height: 115px;
+  margin: 0 auto;
+  display: none;
+}
+.success-checkmark .check-icon {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border-radius: 50%;
+  box-sizing: content-box;
+  border: 4px solid #4caf50;
+}
+.success-checkmark .check-icon::before {
+  top: 3px;
+  left: -2px;
+  width: 30px;
+  transform-origin: 100% 50%;
+  border-radius: 100px 0 0 100px;
+}
+.success-checkmark .check-icon::after {
+  top: 0;
+  left: 30px;
+  width: 60px;
+  transform-origin: 0 50%;
+  border-radius: 0 100px 100px 0;
+  animation: rotate-circle 4.25s ease-in;
+}
+.success-checkmark .check-icon::before, .success-checkmark .check-icon::after {
+  content: '';
+  height: 100px;
+  position: absolute;
+  /* background: #fff; */
+  transform: rotate(-45deg);
+}
+.success-checkmark .check-icon .icon-line {
+  height: 5px;
+  background-color: #4caf50;
+  display: block;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+}
+.success-checkmark .check-icon .icon-line.line-tip {
+  top: 46px;
+  left: 14px;
+  width: 25px;
+  transform: rotate(45deg);
+  animation: icon-line-tip 0.75s;
+}
+.success-checkmark .check-icon .icon-line.line-long {
+  top: 38px;
+  right: 8px;
+  width: 47px;
+  transform: rotate(-45deg);
+  animation: icon-line-long 0.75s;
+}
+.success-checkmark .check-icon .icon-circle {
+  top: -4px;
+  left: -4px;
+  z-index: 10;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  box-sizing: content-box;
+  border: 4px solid rgba(76, 175, 80, .5);
+}
+.success-checkmark .check-icon .icon-fix {
+  top: 8px;
+  width: 5px;
+  left: 26px;
+  z-index: 1;
+  height: 85px;
+  position: absolute;
+  transform: rotate(-45deg);
+  /* background-color: rgb(177, 14, 14); */
+}
+@keyframes rotate-circle {
+  0% {
+    transform: rotate(-45deg);
+ }
+  5% {
+    transform: rotate(-45deg);
+ }
+  12% {
+    transform: rotate(-405deg);
+ }
+  100% {
+    transform: rotate(-405deg);
+ }
+}
+@keyframes icon-line-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px;
+ }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px;
+ }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px;
+ }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px;
+ }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px;
+ }
+}
+@keyframes icon-line-long {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px;
+ }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px;
+ }
+  84% {
+    width: 55px;
+    right: 0px;
+    top: 35px;
+ }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px;
+ }
+}

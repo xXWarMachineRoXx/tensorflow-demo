@@ -1,0 +1,18 @@
+{
+  "name": "callback",
+  "version": "1.0.0",
+  "description": "callback for tensorflow",
+  "main": "tensorflow.js",
+  "scripts": {
+    "test": "console.log(\"working\");"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "tensorflow"
+  ],
+  "author": "Rijul Sharma",
+  "license": "ISC"
+}
