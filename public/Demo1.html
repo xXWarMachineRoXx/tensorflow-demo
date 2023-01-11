@@ -118,7 +118,7 @@
                  $('<label for="result" class="fw-bold m-1">Result</label><br><div class="input-group mb-3"><span class="input-group-text bg-success text-light border-success" id="basic-addon2">What I think</span><input id="result" type="text" class="form-control" placeholder="Answer" aria-label="Answer"  aria-describedby="basic-addon2"></div>')
                      .appendTo("#form");
                  var obj;
-                 fetch('http://localhost:8001/flask')
+                 fetch('./flask')
                      .then(res => res.text())
                      .then(data => {
                          obj = data;
@@ -132,7 +132,7 @@
 
                      );
 
-             }, 3000);
+             }, 500);
 
 
              return false;
