@@ -57,14 +57,14 @@
 
 
                 <form id="form" action="/home" method="GET" name="form" class="container w-50 text-start">
-                    <div class="form-group mt-2">
+                    <div  id="text-group" class="form-group mt-2">
                         <label for="Text" class="fw-bold">Text</label>
                         <input type="text" class="form-control" id="Text" aria-describedby="queryText"
                             placeholder="Accenture will do 50% more business this year" name="Text">
                     </div>
                     <br>
 
-                    <div class="form-group mt-2">
+                    <div id="tags-group" class="form-group mt-2">
                         <label for="Text" class="fw-bold">Tags</label>
                         <br>
                         <small class=" text-white-50 mb-2">
@@ -99,35 +99,45 @@
 
     <script>
         $(function () {
-            $('.submit').click(function () {
+         $('.submit').click(function () {
 
-                $("#spinner").removeClass("d-none");
-                $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
-                $("#submit").attr("disabled", true);
+             $("#spinner").removeClass("d-none");
+             $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
+             $("#submit").attr("disabled", true);
 
-                $('#Text').attr("disabled", true);
-                $('#Tags').attr("disabled", true);
-
-
-                setTimeout(function () {
-                    $("#spinner").hide();
-                    $("#submit").hide();
-                    $('#Text').attr("disabled", false);
-                    $('#Tags').attr("disabled", false);
-                    $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
-                    $('<div id="result" class="input-group mb-3"><span class="input-group-text bg-success text-light border-success" id="basic-addon2">What I think</span><input type="text" class="form-control" placeholder="Answer" aria-label="Answer" aria-describedby="basic-addon2"></div>')
-                        .appendTo("#form");
+             $('#Text').attr("disabled", true);
+             $('#Tags').attr("disabled", true);
 
 
-                }, 3000);
-                $.getJSON('/home', function (json_data) {
-                    $('#result').value(json_data);
+             setTimeout(function () {
+                 $("#spinner").hide();
+                 $("#submit").hide();
+                 $('#text-group').hide();
+                 $('#tags-group').hide();
+                 $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
+                 $('<label for="result" class="fw-bold m-1">Result</label><br><div class="input-group mb-3"><span class="input-group-text bg-success text-light border-success" id="basic-addon2">What I think</span><input id="result" type="text" class="form-control" placeholder="Answer" aria-label="Answer"  aria-describedby="basic-addon2"></div>')
+                     .appendTo("#form");
+                 var obj;
+                 fetch('http://localhost:8001/flask')
+                     .then(res => res.text())
+                     .then(data => {
+                         obj = data;
+                     })
+                     .then(() => {
+                         $("#result").val(obj);
+                         console.log('received : ', obj);
 
-                });
-                console.log('received!! : ');
-                return false;
-            });
-        });
+                     }).then(
+                         $('<button class="btn btn-primary mt-5 text-center" id="reset" type="reset" onclick="location.reload() ">Ask me again ?</button>').appendTo('#form')
+
+                     );
+
+             }, 3000);
+
+
+             return false;
+         });
+     });
     </script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <canvas id="myChart" width="400" height="400"></canvas>
