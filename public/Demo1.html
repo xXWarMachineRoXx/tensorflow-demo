@@ -43,7 +43,7 @@
             <main class="px-3 py-5 h-100  justify-content-center">
                 <br>
                 <br>
-                <img src="images/cat.png" alt="categorization" srcset="">
+                <img src="images/cat.png" alt="categorization" >
                 <h1> Demo 1 ( Categorization)</h1>
                 <p class="lead">Enter any text which will be categorized by the model into buckets which you define.
                     <!-- <br>  <strong>RoBERTa large model</strong> or   <strong>roberta-large-mnli</strong> is the RoBERTa large model fine-tuned on the Multi-Genre Natural Language Inference (MNLI) corpus. The model is a pretrained model on English language text using a masked language modeling (MLM) objective -->
@@ -59,7 +59,7 @@
                 <form id="form" action="/home" method="GET" name="form" class="container w-50 text-start">
                     <div  id="text-group" class="form-group mt-2">
                         <label for="Text" class="fw-bold">Text</label>
-                        <input type="text" class="form-control" id="Text" aria-describedby="queryText"
+                        <input type="text" class="form-control" id="Text" aria-describedby="Text"
                             placeholder="Accenture will do 50% more business this year" name="Text">
                     </div>
                     <br>
@@ -71,32 +71,28 @@
                             Enter comma spaced categories that you expect the ml model to fit text into
                         </small>
 
-                        <input type="text" class="form-control" id="Tags" aria-describedby="queryTags"
+                        <input type="text" class="form-control" id="Tags" aria-describedby="Tags"
                             placeholder="Business, Travel, Entertainment" name="Tags">
                     </div>
                     <div class="m-4"></div>
                     <button type="submit" name="submit" id="submit" class="btn submit btn-primary text-center mt-3">
                         Submit
-                        <div id="spinner" class="spinner-border text-light d-none" role="status"></div>
                     </button>
+                    <div id="spinner" class="spinner-border text-light d-none" role="status"></div>
 
 
 
 
                 </form>
-        </div>
-        <!-- <br>
-            <h1> Demo 1 ( Categorization)</h1>
-            <p class="lead">This model Categorizes text according to  RoBERTa large model (<a  href="https://huggingface.co/roberta-large-mnli">@roberta-large-mnli</a>).
-            <br>  <strong>RoBERTa large model</strong> or   <strong>roberta-large-mnli</strong> is the RoBERTa large model fine-tuned on the Multi-Genre Natural Language Inference (MNLI) corpus. The model is a pretrained model on English language text using a masked language modeling (MLM) objective
-            </p> -->
+    
+        
 
         </main>
 
 
-        <div id="myChart" style="max-width:700px; height:400px"></div>
+        <div id="myChart1" style="max-width:700px; height:400px"></div>
+        </div>
     </div>
-
     <script>
         $(function () {
          $('.submit').click(function () {
@@ -116,24 +112,24 @@
                  $('#tags-group').hide();
                  $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
                  $('<label for="result" class="fw-bold m-1">Result</label><br><div class="input-group mb-3"><span class="input-group-text bg-success text-light border-success" id="basic-addon2">What I think</span><input id="result" type="text" class="form-control" placeholder="Answer" aria-label="Answer"  aria-describedby="basic-addon2"></div>')
-                     .appendTo("#form");
-                 var obj;
-                 fetch('./flask')
-                     .then(res => res.text())
-                     .then(data => {
+                    .appendTo("#form");
+                    var obj;
+                    fetch('./flask')
+                    .then(res => res.text())
+                    .then(data => {
                          obj = data;
-                     })
-                     .then(() => {
-                         $("#result").val(obj);
-                         console.log('received : ', obj);
+                    })
+                    .then(() => {
+                        $("#result").val(obj);
+                        console.log('received : ', obj);
 
                      }).then(
-                         $('<button class="btn btn-primary mt-5 text-center" id="reset" type="reset" onclick="location.reload() ">Ask me again ?</button>').appendTo('#form')
+                        $('<button class="btn btn-primary mt-5 text-center" id="reset" type="reset" onclick="location.reload() ">Ask me again ?</button>').appendTo('#form')
 
                      );
 
              }, 500);
-
+            
 
              return false;
          });
