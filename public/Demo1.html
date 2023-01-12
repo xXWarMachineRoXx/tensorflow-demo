@@ -43,7 +43,7 @@
             <main class="px-3 py-5 h-100  justify-content-center">
                 <br>
                 <br>
-                <img src="images/cat.png" alt="categorization" >
+                <img src="images/cat.png" alt="categorization">
                 <h1> Demo 1 ( Categorization)</h1>
                 <p class="lead">Enter any text which will be categorized by the model into buckets which you define.
                     <!-- <br>  <strong>RoBERTa large model</strong> or   <strong>roberta-large-mnli</strong> is the RoBERTa large model fine-tuned on the Multi-Genre Natural Language Inference (MNLI) corpus. The model is a pretrained model on English language text using a masked language modeling (MLM) objective -->
@@ -56,8 +56,8 @@
 
 
 
-                <form id="form" action="/home" method="GET" name="form" class="container w-50 text-start">
-                    <div  id="text-group" class="form-group mt-2">
+                <form id="form" action='flask/cat' method="POST" name="form" class="container w-50 text-start">
+                    <div id="text-group" class="form-group mt-2">
                         <label for="Text" class="fw-bold">Text</label>
                         <input type="text" class="form-control" id="Text" aria-describedby="Text"
                             placeholder="Accenture will do 50% more business this year" name="Text">
@@ -77,63 +77,68 @@
                     <div class="m-4"></div>
                     <button type="submit" name="submit" id="submit" class="btn submit btn-primary text-center mt-3">
                         Submit
+                        <div id="spinner" class="spinner-border text-light d-none" role="status"></div>
                     </button>
-                    <div id="spinner" class="spinner-border text-light d-none" role="status"></div>
 
 
 
 
                 </form>
-    
-        
-
-        </main>
 
 
-        <div id="myChart1" style="max-width:700px; height:400px"></div>
+
+            </main>
+
+
+            <div id="myChart1" style="max-width:700px; height:400px"></div>
         </div>
     </div>
     <script>
         $(function () {
-         $('.submit').click(function () {
+            $('.submit').click(function () {
 
-             $("#spinner").removeClass("d-none");
-             $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
-             $("#submit").attr("disabled", true);
+                $("#spinner").removeClass("d-none");
+                $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
+                $("#submit").attr("disabled", true);
 
-             $('#Text').attr("disabled", true);
-             $('#Tags').attr("disabled", true);
+                $('#Text').attr("disabled", true);
+                $('#Tags').attr("disabled", true);
 
 
-             setTimeout(function () {
-                 $("#spinner").hide();
-                 $("#submit").hide();
-                 $('#text-group').hide();
-                 $('#tags-group').hide();
-                 $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
-                 $('<label for="result" class="fw-bold m-1">Result</label><br><div class="input-group mb-3"><span class="input-group-text bg-success text-light border-success" id="basic-addon2">What I think</span><input id="result" type="text" class="form-control" placeholder="Answer" aria-label="Answer"  aria-describedby="basic-addon2"></div>')
-                    .appendTo("#form");
-                    var obj;
-                    fetch('./flask')
-                    .then(res => res.text())
-                    .then(data => {
-                         obj = data;
-                    })
-                    .then(() => {
-                        $("#result").val(obj);
-                        console.log('received : ', obj);
+                setTimeout(function () {
+                    const formData = new FormData();
+                    formData.append('Text', $('#Text').val)
+                    formData.append('Tags', $('#Tags').val)
 
-                     }).then(
-                        $('<button class="btn btn-primary mt-5 text-center" id="reset" type="reset" onclick="location.reload() ">Ask me again ?</button>').appendTo('#form')
+                    $("#spinner").hide();
+                    $("#submit").hide();
+                    $('#text-group').hide();
+                    $('#tags-group').hide();
+                    $("#submit").html('<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..');
+                    $('<label for="result" class="fw-bold m-1">Result</label><br><div class="input-group mb-3"><span class="input-group-text bg-success text-light border-success" id="basic-addon2">What I think</span><input id="result" type="text" class="form-control" placeholder="Answer" aria-label="Answer"  aria-describedby="basic-addon2"></div>')
+                        .appendTo("#form");
+                        var obj;
+                        fetch('./flask/cat', { method: 'POST' }, {
+                            method: 'POST',
+                            body: formData
+                        }).then((response) => response.json())
+                            .then((result) => {
+                                console.log('Success:', result);
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                            });
+                }, 500);
 
-                     );
 
-             }, 500);
-            
+                return false;
+            });
+        });
+        // .then(
+        //                     $('<button class="btn btn-primary mt-5 text-center" id="reset" type="reset" onclick="location.reload() ">Ask me again ?</button>').appendTo('#form')
 
-             return false;
-         });
-     });
+        //                 );
+
     </script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <canvas id="myChart" width="400" height="400"></canvas>

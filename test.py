@@ -1,5 +1,7 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request
 from flask_cors import CORS
+
+import json
 # import cat
 import os
 # from threading import Thread
@@ -16,13 +18,31 @@ def home():
 
 @app.route('/flask', methods=['GET'])
 def index():
-    return "Flask server with changed input"
+   
 
-@app.route('/flask/cat',methods=['GET'])
+    # return_json="{:^8} => " +args.get("Tags")+"\n\tText => "+args.get("Text")
+    print("\n\nreceived request on /flask\n")
+    return jsonify("Hello from flask , python is running!!")
+    
+
+@app.route('/flask/cat',methods=['POST'])
 def dynamic_page():
     
     import cat
-    return cat.categorize()
+    args=request.args
+    print("="*len("2023-01-10 16:33:26.709008: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized"))
+
+    Text=args.get('Text')
+    Tags=args.get('Tags')
+    print(args)
+    if(type(Text)!=type(" ") or type(Tags)!=type(" ")):
+
+        print('\nBad Request\n')
+        return "Bad Request"
+
+    print('received request : ',"Text :" ,Text, "Tags",Tags)
+    return jsonify(cat.categorize(Text,Tags))
+    
 
 if __name__ == "__main__":
     app.run(port=8001, debug=True)

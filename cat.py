@@ -30,10 +30,8 @@ logging.set_verbosity_error()
 #     print("="*len("2023-01-10 16:33:26.709008: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized"))
 
 
-def categorize(*args):
+def categorize(classifier_text,classifier_labels):
    
-    
-    print(args)
 
 
 
@@ -43,9 +41,8 @@ def categorize(*args):
     # classifier_text=args[0]
     # classifier_labels=args[1].split()
     print("="*len("2023-01-10 16:33:26.709008: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized"),"\n")
-
-    classifier_text="I am going to mumbai tomorrow"
-    classifier_labels="Business Travel Leisure".split()
+    classifier_labels.replace(',',' ')
+    classifier_labels=classifier_labels.split()
     print(classifier_text)
     print(classifier_labels)
     print("="*len("2023-01-10 16:33:26.709008: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized"),"\n")
