@@ -28,39 +28,41 @@ $(function () {
   $(".submit").click(function () {
     const Text = $("#Text").val();
     const Tags = $("#Tags").val();
+ 
+      $("#spinner").removeClass("d-none");
+      $("#submit").html(
+        '<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..'
+      );
+      $("#submit").attr("disabled", true);
+  
+      $("#Text").attr("disabled", true);
+      $("#Tags").attr("disabled", true);
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("Text", Text);
+      urlencoded.append("Tags", Tags);
+  
+  
+      var settings = {
+        "url": "http://127.0.0.1:3000/flask/cat",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "data": {
+          "Text": $("#Text"),
+          "Tags": $("#Tags")
+        }
+      };
+  
+      $.ajax(settings).done(function (response) {
+        ui_reply(response)
+      });
 
-    $("#spinner").removeClass("d-none");
-    $("#submit").html(
-      '<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..'
-    );
-    $("#submit").attr("disabled", true);
-
-    $("#Text").attr("disabled", true);
-    $("#Tags").attr("disabled", true);
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("Text", Text);
-    urlencoded.append("Tags", Tags);
-
-
-    var settings = {
-      "url": "http://127.0.0.1:3000/flask/cat",
-      "method": "POST",
-      "timeout": 0,
-      "headers": {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      "data": {
-        "Text": $("#Text"),
-        "Tags": $("#Tags")
-      }
-    };
-
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
+   
   })
 })
 

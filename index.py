@@ -44,17 +44,8 @@ async def dynamic_page():
 
         print('\nBad Request\n')
 
-    return jsonify(categorize(Text,Tags))
-
-   
-  
-    import cat
-
-    print("="*len("2023-01-10 16:33:26.709008: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized"))
-    return args
-    print(args)
-    
-
+    answer=  jsonify(categorize(Text,Tags))
+    return answer
     
 
 if __name__ == "__main__":
