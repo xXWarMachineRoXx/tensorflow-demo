@@ -44,12 +44,7 @@ $(function () {
     urlencoded.append("Text", Text);
     urlencoded.append("Tags", Tags);
 
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: 'follow'
-    };
+
 
     var settings = {
       "url": "http://127.0.0.1:3000/flask/cat",
@@ -59,8 +54,8 @@ $(function () {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       "data": {
-        "Text": "Accenture will do 50% more business than last year",
-        "Tags": "Business Leisure Travel"
+        "Text": $("#Text"),
+        "Tags": $("#Tags")
       }
     };
 

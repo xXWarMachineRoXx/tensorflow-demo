@@ -21,12 +21,12 @@ var upload = multer();
 
 
 // for parsing application/json
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
 // for parsing application/xwww-
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 // const { body } = require('express-validator');
-app.use(upload.array()); 
+app.use(upload.array());
 
 var flaskServer = 'http://127.0.0.1:8001/'
 var dir = path.join(__dirname, 'public');
@@ -58,20 +58,34 @@ app.get('/flask', function (req, res) {
 
 
 //allow cors on this route
-app.post('/flask/cat',cors(),(req, res) => {
+app.post('/flask/cat', cors(), (req, res) => {
   received_text = req.body["Text"];
   received_tags = req.body["Tags"];
   // received_tags = req.body["Tags"];
   date = new Date();
-  console.log("\n" + "=".repeat(100) + "\n\nat " + date + "\n \nindex js received \nText :",received_text,"\nTags :",received_tags ,"\n\n" + "=".repeat(100) + "\n");
-  res.send(received_tags);
+  console.log("\n" + "=".repeat(100) + "\n\nat " + date + "\n \nindex js received \nText :", received_text, "\nTags :", received_tags, "\n\n" + "=".repeat(100) + "\n");
+  var myHeaders = new Headers();
+myHeaders.append("Accept", "application/json");
+myHeaders.append("Content-Type", "application/json");
 
-  
+var raw = JSON.stringify({
+  "Text": "Accenture will do 50% more business than last year",
+  "Tags": "Business Leisure Travel"
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://127.0.0.1:8001/flask/cat", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 }
-
-
-
-) 
+)
 
 
 // var myHeaders = new Headers();
