@@ -45,7 +45,6 @@ $(function () {
     urlencoded.append("Tags", Tags);
 
 
-
     var settings = {
       "url": "http://127.0.0.1:3000/flask/cat",
       "method": "POST",
