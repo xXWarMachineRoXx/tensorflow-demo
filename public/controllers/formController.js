@@ -1,3 +1,4 @@
+
 let flaskServer = "http://127.0.0.1:8001";
 
 function ui_reply(result) {
@@ -25,6 +26,9 @@ function ui_reply(result) {
 
 $(function () {
   $(".submit").click(function () {
+    const Text = $("#Text").val();
+    const Tags = $("#Tags").val();
+
     $("#spinner").removeClass("d-none");
     $("#submit").html(
       '<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..'
@@ -33,18 +37,36 @@ $(function () {
 
     $("#Text").attr("disabled", true);
     $("#Tags").attr("disabled", true);
-    const params = {
-        Text: $('#Text').val(),
-        Tags: $('#Tags').val(),
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("Text", Text);
+    urlencoded.append("Tags", Tags);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
+    };
+
+    var settings = {
+      "url": "http://127.0.0.1:3000/flask/cat",
+      "method": "POST",
+      "timeout": 0,
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "Text": "Accenture will do 50% more business than last year",
+        "Tags": "Business Leisure Travel"
       }
-    const response =  fetch('/flask/cat', {
-        method: 'POST',
-        
+    };
 
-        body: JSON.stringify(params)
-      });
-    ui_reply(response.body);
-    return false;
-  });
-});
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+  })
+})
+
