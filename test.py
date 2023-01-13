@@ -28,20 +28,20 @@ def index():
 @app.route('/flask/cat',methods=['POST'])
 def dynamic_page():
     
-    import cat
+    # import cat
     args=request.args
     print("="*len("2023-01-10 16:33:26.709008: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized"))
-
     Text=args.get('Text')
     Tags=args.get('Tags')
-    print(args)
-    if(type(Text)!=type(" ") or type(Tags)!=type(" ")):
-
-        print('\nBad Request\n')
-        return "Bad Request"
-
     print('received request : ',"Text :" ,Text, "Tags",Tags)
-    return jsonify(cat.categorize(Text,Tags))
+    return args
+    # print(args)
+    # if(type(Text)!=type(" ") or type(Tags)!=type(" ")):
+
+    #     print('\nBad Request\n')
+    
+
+    # return jsonify(cat.categorize(Text,Tags))
     
 
 if __name__ == "__main__":
