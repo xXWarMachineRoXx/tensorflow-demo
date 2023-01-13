@@ -33,7 +33,7 @@ def dynamic_page():
     print("="*len("2023-01-10 16:33:26.709008: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized"))
     Text=args.get('Text')
     Tags=args.get('Tags')
-    print('received request : ',"Text :" ,Text, "Tags",Tags)
+    print('received request : ',"Text :" ,Text, "Tags",Tags,"args ",args)
     return args
     # print(args)
     # if(type(Text)!=type(" ") or type(Tags)!=type(" ")):

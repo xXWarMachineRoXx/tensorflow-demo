@@ -17,7 +17,7 @@ function ui_reply(result) {
     .appendTo("#form")
     .appendTo("#form");
   console.log(
-    "hello from client side form \n received \n \t :",
+    "hello from client side form \n sent \n \t :",
     $("#Text").val()
   );
   $('#result').val(result);

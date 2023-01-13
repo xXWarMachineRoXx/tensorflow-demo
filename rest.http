@@ -1,0 +1,6 @@
+POST http://127.0.0.1:3000/flask/cat
+
+{
+    "Text" : "Accenture will do 50% more business than last year",
+    "Tags" : "Business Leisure Travel"
+}

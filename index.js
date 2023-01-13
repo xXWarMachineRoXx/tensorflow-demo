@@ -1,3 +1,10 @@
+// -----------------------
+// All required modules 
+// -----------------------
+// Path
+// Request to send and get requests ( maybe substituted for fetch)
+// body-parser for forms
+//
 
 var path = require('path');
 const request = require('request');
@@ -6,24 +13,24 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var express = require('express');
 var app = express();
 var favicon = require('serve-favicon');
-const { body } = require('express-validator');
+// const { body } = require('express-validator');
 
 var flaskServer='http://127.0.0.1:8001/'
 var dir = path.join(__dirname, 'public');
 
 
 
+app.use(urlencodedParser);
 
 
 
 
 
-
+// sets the dir to server from , eg : sets the opening 
 app.use(express.static(dir));
 
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
-app.use(favicon(__dirname + '/public/index.css'));
-
+app.use(favicon(__dirname + '/public//css/index.css'));
 app.listen(3000, function () {
     console.log('Listening on http://localhost:3000/');
 });
@@ -44,16 +51,14 @@ app.get('/flask', function(req, res) {
 
 
 
-app.post('/flask/cat', urlencodedParser, (req, res) => {
+app.post('/flask/cat', (req, res) => {
     received_text = req.body.Text;
     received_tags = Array(req.body.Tags);
-    console.log("index js received",received_text, received_tags,"\n\n");
+    date=new Date()
+    console.log("\n"+"=".repeat(100)+"\n\nat "+date+"\n index js received",received_text,"\n\n"+"=".repeat(100)+"\n");
     url=flaskServer+'flask/cat';
-    
-     
-    
-      console.log('POSTing to '+url);
-      res.send(JSON.stringify("hello"));
+    console.log('POSTing to '+url);
+    res.status(200).send(received_tags);
     //   data={
     //     'Text':received_text,
     //     'Tags':received_tags
