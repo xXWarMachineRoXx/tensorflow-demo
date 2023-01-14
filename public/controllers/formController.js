@@ -52,11 +52,6 @@ $(".submit").click(function () {
     redirect: 'follow'
   };
   
-  // fetch("http://127.0.0.1:8001/flask/cat", requestOptions)
-  // .then(response => response.json())
-  // .then(ui_reply(response))
-  // .then(result => console.log(result))
-  // .catch(error => console.log('error', error));
 
   url="http://127.0.0.1:8001/flask/cat";
   fetch(url,requestOptions).then((response) => {
