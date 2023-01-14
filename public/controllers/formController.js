@@ -1,5 +1,4 @@
 
-let flaskServer = "http://127.0.0.1:8001";
 
 function ui_reply(result) {
   $("#spinner").hide();
@@ -24,45 +23,57 @@ function ui_reply(result) {
   $('#result').val(result);
 }
 
-$(function () {
-  $(".submit").click(function () {
-    const Text = $("#Text").val();
-    const Tags = $("#Tags").val();
- 
-      $("#spinner").removeClass("d-none");
-      $("#submit").html(
-        '<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..'
-      );
-      $("#submit").attr("disabled", true);
-  
-      $("#Text").attr("disabled", true);
-      $("#Tags").attr("disabled", true);
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  
-      var urlencoded = new URLSearchParams();
-      urlencoded.append("Text", Text);
-      urlencoded.append("Tags", Tags);
-  
-  
-      var settings = {
-        "url": "http://127.0.0.1:3000/flask/cat",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        "data": {
-          "Text": $("#Text"),
-          "Tags": $("#Tags")
-        }
-      };
-  
-      $.ajax(settings).done(function (response) {
-        ui_reply(response)
-      });
 
-   
+$(".submit").click(function () {
+  const Text = $("#Text").val();
+  const Tags = $("#Tags").val();
+  
+  $("#spinner").removeClass("d-none");
+  $("#submit").html(
+    '<div id="spinner" class="spinner-grow spinner-grow-sm text-light " role="status"></div> Thinking ..'
+  );
+  $("#submit").attr("disabled", true);
+
+  $("#Text").attr("disabled", true);
+  $("#Tags").attr("disabled", true);
+  var myHeaders = new Headers();
+  myHeaders.append("Accept", "application/json");
+  myHeaders.append("Content-Type", "application/json");
+  
+  var raw = JSON.stringify({
+    "Text": Text,
+    "Tags": Tags
+  });
+  
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  
+  // fetch("http://127.0.0.1:8001/flask/cat", requestOptions)
+  // .then(response => response.json())
+  // .then(ui_reply(response))
+  // .then(result => console.log(result))
+  // .catch(error => console.log('error', error));
+
+  url="http://127.0.0.1:8001/flask/cat";
+  fetch(url,requestOptions).then((response) => {
+    if (response.ok) {
+      return response.json();
+
+    }else if(window. onerror()){
+      throw new Error('console error')
+    }
+    throw new Error('Something went wrong');
   })
+  .then((responseJson) => {
+    ui_reply(responseJson)
+  })
+  .catch((error) => {
+    console.log(error)
+  });
 })
+
 

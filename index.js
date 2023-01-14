@@ -17,6 +17,7 @@ var app = express();
 var favicon = require('serve-favicon');
 
 var multer = require('multer');
+const { response } = require('express');
 var upload = multer();
 
 
@@ -64,46 +65,28 @@ app.post('/flask/cat', cors(), (req, res) => {
   // received_tags = req.body["Tags"];
   date = new Date();
   console.log("\n" + "=".repeat(100) + "\n\nat " + date + "\n \nindex js received \nText :", received_text, "\nTags :", received_tags, "\n\n" + "=".repeat(100) + "\n");
+
   var myHeaders = new Headers();
-myHeaders.append("Accept", "application/json");
-myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Accept", "application/json");
+  myHeaders.append("Content-Type", "application/json");
 
-var raw = JSON.stringify({
-  "Text": "Accenture will do 50% more business than last year",
-  "Tags": "Business Leisure Travel"
-});
+  var raw = JSON.stringify({
+    "Text": received_text,
+    "Tags": received_tags
+  });
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
 
-fetch("http://127.0.0.1:8001/flask/cat", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+  fetch("http://127.0.0.1:8001/flask/cat", requestOptions)
+    .then(response => response.json())
+    .then(result => console.log(result))
+    .then(res.send(response))
+    .catch(error => console.log('error', error));
 }
 )
-
-
-// var myHeaders = new Headers();
-// myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-// var urlencoded = new URLSearchParams();
-// urlencoded.append("Text", "Accenture will do 50% more business than last year");
-// urlencoded.append("Tags", "Business Leisure Travel");
-
-// var requestOptions = {
-//   method: 'POST',
-//   headers: myHeaders,
-//   body: urlencoded,
-//   redirect: 'follow'
-// };
-
-// fetch("http://127.0.0.1:3000/flask/cat", requestOptions)
-//   .then(response => response.text())
-//   .then(result => console.log(result))
-//   .catch(error => console.log('error', error));
 

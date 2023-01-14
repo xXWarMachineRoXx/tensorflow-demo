@@ -16,13 +16,14 @@ CORS(app)
 def home():
     return "Home"
 
-@app.route('/flask', methods=['GET'])
+@app.route('/flask', methods=['GET','POST'])
 def index():
    
+    content_type = request.headers.get('Content-Type')
    
-    # return_json="{:^8} => " +args.get("Tags")+"\n\tText => "+args.get("Text")
+    
     print("\n\nreceived request on /flask\n")
-    return jsonify("Hello from flask , python is running!!")
+    return jsonify("Hello from flask , python is running!!","received type : ", content_type)
     
 
 

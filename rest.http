@@ -1,6 +1,7 @@
-POST http://127.0.0.1:3000/flask/cat
+POST http://127.0.0.1:8001/flask
+content-type: application/x-www-form-urlencoded
 
 {
-    "Text" : "Accenture will do 50% more business than last year",
-    "Tags" : "Business Leisure Travel"
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
 }
